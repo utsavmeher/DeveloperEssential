@@ -54,6 +54,16 @@ public class MainActivity extends Activity {
         startActivity(intent);
     }
 
+    public void addList(View view) {
+        Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
+        startActivity(intent);
+    }
+
+    public void viewList(View view) {
+        Intent intent = new Intent(MainActivity.this, ViewRecipe.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         //Creating dialog box
