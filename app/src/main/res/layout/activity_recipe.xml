@@ -5,44 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RecipeActivity">
+
     <EditText
         android:id="@+id/recipeName"
-        android:layout_width="150dp"
+        android:layout_width="316dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="59dp"
-        android:inputType="text"
-        android:hint="Recipe Name"/>
-
-    <EditText
-        android:id="@+id/ingridient1"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="163dp"
-        android:hint="Ingridients 1"
+        android:hint="Recipe Name"
         android:inputType="text" />
 
     <EditText
-        android:id="@+id/ingridient2"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/ingridients"
+        android:layout_width="316dp"
+        android:layout_height="130dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="110dp"
-        android:hint="Ingridients 2"
-        android:inputType="text" />
+        android:layout_marginTop="119dp"
+        android:hint="Ingridients"
+        android:inputType="textMultiLine" />
 
     <Button
         android:id="@+id/saveRecipe"
         style="@style/Widget.AppCompat.Button"
-        android:layout_width="wrap_content"
+        android:layout_width="157dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="223dp"
+        android:layout_marginBottom="156dp"
         android:onClick="saveRecipe"
         android:text="Save" />
 

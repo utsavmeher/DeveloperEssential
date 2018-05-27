@@ -9,4 +9,4 @@
     android:layout_marginTop="5dp"
     android:padding="2dp"
     android:text="Medium Text"
-    android:textSize="24sp" />
+    android:textSize="20sp" />

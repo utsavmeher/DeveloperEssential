@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="127dp"
+        android:layout_marginTop="186dp"
         android:onClick="addList"
         android:text="Add Recipe" />
 
@@ -47,11 +47,21 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="194dp"
+        android:layout_marginBottom="217dp"
         android:onClick="viewList"
         android:text="View Recipe" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="120dp"
+        android:text="My Recipes"
+        android:textSize="24sp" />
 
 
 </RelativeLayout>

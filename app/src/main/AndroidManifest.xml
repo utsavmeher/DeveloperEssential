@@ -42,7 +42,8 @@
             android:label="@string/title_activity_maps" />
         <activity android:name=".CameraActivity" />
         <activity android:name=".RecipeActivity" />
-        <activity android:name=".ViewRecipe"></activity>
+        <activity android:name=".ViewRecipe" />
+        <activity android:name=".Ingredients"></activity>
     </application>
 
 </manifest>
