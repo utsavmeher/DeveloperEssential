@@ -22,31 +22,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    99);
-        }
-        builder = new AlertDialog.Builder(this);
-        builder.setMessage("Do you want to close this application ?")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        finish();
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        //  Action for 'NO' Button
-                        dialog.cancel();
-                    }
-                });
-    }
-
-    public void openGoogleMaps(View view) {
-        Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-        startActivity(intent);
     }
 
     public void openCamera(View view) {
@@ -69,7 +44,7 @@ public class MainActivity extends Activity {
         //Creating dialog box
         AlertDialog alert = builder.create();
         //Setting the title manually
-        alert.setTitle("DeveloperEssential");
+        alert.setTitle("MyRecipes");
         alert.show();
         setContentView(R.layout.activity_main);
         return super.onKeyDown(keyCode, event);
