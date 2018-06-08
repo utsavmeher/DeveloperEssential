@@ -4,38 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <Button
-        android:id="@+id/button"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:onClick="openCamera"
-        android:text="Camera" />
+    tools:context=".activity.MainActivity">
 
     <Button
         android:id="@+id/addList"
         style="@style/Widget.AppCompat.Button"
-        android:layout_width="wrap_content"
+        android:layout_width="118dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="186dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="193dp"
         android:onClick="addList"
         android:text="Add Recipe" />
 
     <Button
         android:id="@+id/mylist"
         style="@style/Widget.AppCompat.Button"
-        android:layout_width="wrap_content"
+        android:layout_width="119dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="217dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/addList"
+        android:layout_marginEnd="55dp"
         android:onClick="viewList"
         android:text="View Recipe" />
 
@@ -45,9 +35,7 @@
         android:layout_height="48dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="53dp"
         android:text="My Recipes"
         android:textSize="24sp" />
-
-
 </RelativeLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecipeActivity">
+    tools:context=".activity.RecipeActivity">
 
     <EditText
         android:id="@+id/recipeName"
@@ -27,13 +27,33 @@
         android:inputType="textMultiLine" />
 
     <Button
+        android:id="@+id/button"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/recipeName"
+        android:layout_marginBottom="168dp"
+        android:onClick="openCamera"
+        android:text="Camera" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="133dp"
+        android:layout_height="121dp"
+        android:layout_alignEnd="@+id/recipeName"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="127dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <Button
         android:id="@+id/saveRecipe"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="157dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="156dp"
+        android:layout_marginBottom="66dp"
         android:onClick="saveRecipe"
         android:text="Save" />
 

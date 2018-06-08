@@ -1,26 +1,31 @@
-package developer.com.developeressential;
+package developer.com.developeressential.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
+
+import developer.com.developeressential.R;
+import developer.com.developeressential.service.RecipeService;
 
 public class RecipeActivity extends Activity {
 
-    private Connection connect = null;
-    private Statement statement = null;
-    private PreparedStatement preparedStatement = null;
-    private ResultSet resultSet = null;
+
+    private static final int CAMERA_REQUEST = 1888;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,20 +38,19 @@ public class RecipeActivity extends Activity {
         runner.execute("save");
     }
 
-    private void close() {
-        try {
-            if (resultSet != null) {
-                resultSet.close();
-            }
-            if (statement != null) {
-                statement.close();
-            }
-            if (connect != null) {
-                connect.close();
-            }
-        } catch (Exception e) {
+    public void openCamera(View view) {
+        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CAMERA_REQUEST) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            ImageView imageView = (ImageView) this.findViewById(R.id.imageView);
+            imageView.setImageBitmap(photo);
         }
     }
+
     private class AsynckTaskRunner extends AsyncTask<String, String, String>{
         private String resp;
         ProgressDialog progressDialog;
@@ -59,17 +63,15 @@ public class RecipeActivity extends Activity {
                     try {
                         String recipeName = ((EditText) findViewById(R.id.recipeName)).getText().toString();
                         String ingredients = ((EditText) findViewById(R.id.ingridients)).getText().toString();
-                        Class.forName("com.mysql.jdbc.Driver");
-                        connect = DriverManager.getConnection("jdbc:mysql://myapp.c7dtuh83ephj.us-east-1.rds.amazonaws.com:3306/devessentials","admin","Utsav123$");
-                        String sql = "INSERT INTO RECIPES (NAME, INGREDIENTS) VALUES (?,?)";
-                        preparedStatement = connect.prepareStatement(sql);
-                        preparedStatement.setString(1,recipeName);
-                        preparedStatement.setString(2,ingredients);
-                        int i=preparedStatement.executeUpdate();
+                        ImageView imageView = (ImageView)findViewById(R.id.imageView);
+                        imageView.setDrawingCacheEnabled(true);
+                        imageView.buildDrawingCache();
+                        Bitmap bitmap = Bitmap.createBitmap(imageView.getDrawingCache());
+                        byte[] bitmapdata = getBytes(bitmap);
+                        RecipeService recipeService=new RecipeService();
+                        recipeService.addRecipe(recipeName, ingredients, bitmapdata);
                     } catch (Exception e) {
                         Toast.makeText(RecipeActivity.this, "Recipes Addition Failed", Toast.LENGTH_LONG).show();
-                    } finally {
-                        close();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -89,5 +91,11 @@ public class RecipeActivity extends Activity {
                     "Recipes",
                     "Saving Recipe...");
         }
+    }
+    // convert from bitmap to byte array
+    public static byte[] getBytes(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        return stream.toByteArray();
     }
 }

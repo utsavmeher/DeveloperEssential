@@ -1,4 +1,4 @@
-package developer.com.developeressential;
+package developer.com.developeressential.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -8,11 +8,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -23,12 +23,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import developer.com.developeressential.R;
+import developer.com.developeressential.model.Recipe;
+import developer.com.developeressential.service.RecipeService;
+
 public class ViewRecipe extends Activity {
     private Connection connect = null;
     private Statement statement = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
-
     private ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,27 +46,15 @@ public class ViewRecipe extends Activity {
         private String resp;
         ProgressDialog progressDialog;
         List<String> recipeNames;
-        Map<String, String> recipes = new HashMap<String, String>();
+        Map<String, Recipe> recipes = new HashMap<String, Recipe>();
 
         @Override
         protected String doInBackground(String... params) {
             String whatTodo=params[0];
             publishProgress("Saving..."); // Calls onProgressUpdate()
             try {
-                try {
-                    Class.forName("com.mysql.jdbc.Driver");
-                    connect = DriverManager.getConnection("jdbc:mysql://myapp.c7dtuh83ephj.us-east-1.rds.amazonaws.com:3306/devessentials","admin","Utsav123$");
-                    String sql = "select * from RECIPES";
-                    preparedStatement = connect.prepareStatement(sql);
-                    ResultSet rs=preparedStatement.executeQuery();
-                    while(rs.next()){
-                        recipes.put(rs.getString(2), rs.getString(3));
-                    }
-                } catch (Exception e) {
-                    Toast.makeText(ViewRecipe.this, "Recipes Retrieved Failed", Toast.LENGTH_LONG).show();
-                } finally {
-                    close();
-                }
+                RecipeService recipeService=new RecipeService();
+                recipes = recipeService.getRecipe();
             } catch (Exception e) {
                 e.printStackTrace();
                 resp = e.getMessage();
@@ -87,7 +78,8 @@ public class ViewRecipe extends Activity {
                                 Intent i = new Intent(ViewRecipe.this, Ingredients.class);
                                 // sending data to new activity
                                 i.putExtra("recipe", recipeName);
-                                i.putExtra("ingredients", recipes.get(recipeName));
+                                i.putExtra("ingredients", recipes.get(recipeName).getIngredients());
+                                i.putExtra("image", recipes.get(recipeName).getImageArray());
                                 startActivity(i);
                             }
                         });
@@ -98,21 +90,6 @@ public class ViewRecipe extends Activity {
             progressDialog = ProgressDialog.show(ViewRecipe.this,
                     "Recipes",
                     "Fetching Recipes...");
-        }
-    }
-    private void close() {
-        try {
-            if (resultSet != null) {
-                resultSet.close();
-            }
-            if (statement != null) {
-                statement.close();
-            }
-            if (connect != null) {
-                connect.close();
-            }
-        } catch (Exception e) {
-
         }
     }
 }
