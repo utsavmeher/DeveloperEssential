@@ -24,7 +24,7 @@ public class RecipeService {
     public void addRecipe(String recipeName, String ingredients, byte[] bitmapdata){
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            connect = DriverManager.getConnection("jdbc:mysql://myapp.c7dtuh83ephj.us-east-1.rds.amazonaws.com:3306/devessentials","admin","Utsav123$");
+            connect = DriverManager.getConnection("jdbc:mysql://myapp.c7dtuh83ephj.us-east-1.rds.amazonaws.com:3306/myapp","admin","Utsav123$");
             String sql = "INSERT INTO RECIPES (NAME, INGREDIENTS, IMAGE) VALUES (?,?,?)";
             preparedStatement = connect.prepareStatement(sql);
             preparedStatement.setString(1,recipeName);
@@ -40,7 +40,7 @@ public class RecipeService {
     public Map<String, Recipe> getRecipe(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connect = DriverManager.getConnection("jdbc:mysql://myapp.c7dtuh83ephj.us-east-1.rds.amazonaws.com:3306/devessentials","admin","Utsav123$");
+            connect = DriverManager.getConnection("jdbc:mysql://myapp.c7dtuh83ephj.us-east-1.rds.amazonaws.com:3306/myapp","admin","Utsav123$");
             String sql = "select * from RECIPES";
             preparedStatement = connect.prepareStatement(sql);
             ResultSet rs=preparedStatement.executeQuery();

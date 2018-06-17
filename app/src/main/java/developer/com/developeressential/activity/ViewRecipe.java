@@ -28,10 +28,6 @@ import developer.com.developeressential.model.Recipe;
 import developer.com.developeressential.service.RecipeService;
 
 public class ViewRecipe extends Activity {
-    private Connection connect = null;
-    private Statement statement = null;
-    private PreparedStatement preparedStatement = null;
-    private ResultSet resultSet = null;
     private ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
